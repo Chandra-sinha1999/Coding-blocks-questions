@@ -1,0 +1,105 @@
+#include<iostream>
+#include<cstring>
+#include<algorithm>
+using namespace std;
+bool findprefix(string a,string b)
+{
+    int x=a.length();
+    int y=b.length();
+    if(x>y)
+    {
+    for(int i=0;i<y;i++)
+        {
+            if(a[i]!=b[i])
+                return false;
+        }
+     return true;
+    }
+    else
+    {
+     for(int i=0;i<x;i++)
+        {
+            if(a[i]!=b[i])
+                return false;
+        }
+     return true;
+    }
+}
+int merger(string a[],int s,int e)
+{
+ int mid=(s+e)/2;
+ int i=s,j=mid+1,k=s;
+ string temp[100];
+ while(i<=mid&&j<=e)
+ {
+    if(findprefix(a[i],a[j]))
+     {
+     if(a[i].length()<a[j].length())
+     {
+         temp[k]=a[j];
+         j++;
+         k++;
+     }
+     else
+     {
+         temp[k]=a[i];
+         i++;
+         k++;
+     }
+     }
+     else
+     {
+         if(a[i]>a[j])
+     {
+         temp[k]=a[j];
+         j++;
+         k++;
+     }
+     else
+     {
+         temp[k]=a[i];
+         i++;
+         k++;
+     }
+     }
+ }
+ while(i<=mid)
+ {
+     temp[k]=a[i];
+     k++;
+     i++;
+ }
+ while(j<=e)
+ {
+     temp[k]=a[j];
+     k++;
+     j++;
+ }
+ for(int i=s;i<=e;i++)
+    a[i]=temp[i];
+}
+int mergesort(string a[],int s,int e)
+{
+    if(s==e)
+        return 0;
+    int mid=(s+e)/2;
+    mergesort(a,s,mid);
+    mergesort(a,mid+1,e);
+    merger(a,s,e);
+
+}
+
+
+int main(void)
+{
+    int n;
+    cin>>n;
+    string a[n];
+    for(int i=0;i<n;i++)
+        cin>>a[i];
+    int s=0;
+    int e=n-1;
+    mergesort(a,s,e);
+    for(int i=0;i<n;i++)
+        cout<<a[i]<<endl;
+}
