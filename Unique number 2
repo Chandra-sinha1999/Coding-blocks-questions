@@ -1,0 +1,47 @@
+#include<bits/stdc++.h>
+using namespace std;
+int firstbit(int n)
+{
+    int count=0;
+    while(n>0)
+    {
+        if(n&1==1)
+        {
+            return count;
+        }
+        else
+        {
+            count++;
+            n=n>>1;
+        }
+    }
+}
+int main(void)
+{
+    int n;
+    cin>>n;
+    int a[n];
+    for(int i=0;i<n;i++)
+    {
+        cin>>a[i];
+    }
+    int c=a[0];
+    for(int i=1;i<n;i++)
+    {
+        c=c^a[i];
+    }
+    int count=firstbit(c);
+    int res=0;
+    for(int i=0;i<n;i++)
+    {
+        int p=a[i];
+        p=p>>count;
+        if(p&1==1)
+        {
+            res=res^a[i];
+        }
+    }
+    int d=res^c;
+    cout<<d<<" ";
+	cout<<res;
+}
