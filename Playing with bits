@@ -1,0 +1,28 @@
+#include<iostream>
+using namespace std;
+int countbits(int n)
+{
+    int count=0;
+    while(n)
+    {
+        count++;
+        n=n&n-1;
+    }
+    return count;
+}
+int main(void)
+{
+    int q;
+    cin>>q;
+    while(q--)
+    {
+        int a,b;
+        cin>>a>>b;
+        int sum=0;
+        for(int i=a;i<=b;i++)
+        {
+            sum+=countbits(i);
+        }
+        cout<<sum<<endl;
+    }
+}
